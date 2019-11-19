@@ -1,0 +1,24 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+    <br>
+    <br>
+    <div class="wrapper">
+        <div class="row justify-content-center col-md-12">
+        {% for i in group %}
+            <div class="col-md-4 rounded" style=" border: 1px dashed black; margin: 2px;" >
+                <p>Group name :  {{ i.name }}</p>
+                <p>Group token : {{ i.reg_token }}</p>
+                <ul>
+                    {% for j in members[loop.index] %}
+                        <li>
+                            {{ j.username }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <hr>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}
