@@ -1,0 +1,47 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <h1 class="" style="text-align: center;"> Your group queues: </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <ul class="list-group" id="all_queues">
+                    {% if queues %}
+                        {%  for i in queues %}
+                            <button type="button" onclick="window.location.href = '/queues/{{i.id}}';" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                               {% if i.queue_name %}
+                                    {{ i.queue_name }}
+                                {% else %}
+                                   default_name
+                                {% endif %}
+                                <span class="badge badge-primary badge-pill">{{i.get_size()}}</span>
+                            </button>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-6 rounded" style="box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important; text-align: center; font-size: 25px; background-color: #485F6E; color: antiquewhite;" onclick="exec_add_deadline()" >Add queue</div>
+        </div>
+    </div>
+    <div id="deadline_input_form" style="visibility: hidden;">
+        <div class="col-sm-12">
+            <form method="POST">
+                <button type="button" onclick="close_add_deadline()" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <input class="form-control deadline_input" id="queue-id-name" type="text" placeholder="Queue name">
+                <div onclick="send_queue()" class="btn btn-primary mb-2 deadline_input">Add queue</div>
+                <div style="color:red;" id="queue_errors"></div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

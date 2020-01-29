@@ -1,0 +1,70 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+    <div class="wrapper">
+        <br>
+        <div class="justify-content-center">
+            <div class="">
+                <h4 style="text-align: center;">Here are your deadlines</h4>
+            </div>
+
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+        <div class="row jusify-content-center">
+            <div class="col-md-12">
+                        {% for i in messages %}
+                            <h4>
+                              {{ i }}
+                            </h4>
+                        {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="justify-content-center" >
+            {% if deadlines %}
+                <div class="row justify-content-center" id="all_deadlines">
+                {% for i in deadlines %}
+                        <div class="col-sm-3 deadline">
+                            <h4>Name of deadline: {{ i.body }}</h4>
+                            <h5 style='color:red;'>Expire Date: {{ i.exp_date }}</h5>
+                        </div>
+
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <br>
+        <p id="state_add_deadline" style="font-size: 15px;">
+
+        </p>
+        <div class="row justify-content-center">
+            <div class="add_deadline_class col-sm-6 rounded" style="box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;" onclick="exec_add_deadline()">
+                <CENTER style="font-size: 25px; color: antiquewhite;">Add new deadline</CENTER>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div id="deadline_input_form" style="visibility: hidden;">
+            <div class="col-sm-12">
+                <form method="POST">
+                    <button type="button" onclick="close_add_deadline()" class="close" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input class="form-control deadline_input" id="id-body" type="text" placeholder="Name">
+                    <input class="form-control deadline_input" id="id-date" type="date" placeholder="Expire date">
+                    <select class="form-control form-control-sm deadline_input" id="id-select">
+                      <option value="0">Soft deadline</option>
+                      <option value="1">Hard deadline</option>
+                    </select>
+                    <div onclick="send()" class="btn btn-primary mb-2 deadline_input">Add deadline</div>
+                    <div style="color:red;" id="deadline_errors"></div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

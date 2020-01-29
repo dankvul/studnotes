@@ -1,0 +1,38 @@
+html{
+    font-family: 'Georgia', 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+.add_deadline_class{
+    background-color: black;
+    -webkit-box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;
+    -moz-box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;
+    box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;
+}
+
+
+.content{
+}
+
+#deadline_input_form{
+    padding: 20px;
+    margin:0 auto !important;
+    background-color: white;
+    border-radius: 5px;
+    position: fixed;
+    top: 25%;
+    left: 40%;
+    -webkit-box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;
+    -moz-box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;
+    box-shadow: 6px 4px 19px 0px rgba(0,0,0,0.75) !important;
+
+}
+
+.deadline_input{
+    margin-top: 4px;
+}
+.deadline {
+    background-color: #FF99FF;
+    padding: 10px;
+    border: 1px solid darkgray;
+    margin: 1%;
+}
