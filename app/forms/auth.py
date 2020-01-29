@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from app.models.users import Group, User
 
@@ -44,6 +44,4 @@ class RegForm(FlaskForm):
         group = Group.query.filter_by(reg_token=token.data).first()
         if group is None:
             raise ValidationError("Wrong token")
-
-
 

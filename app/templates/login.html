@@ -17,7 +17,7 @@
       <div class="form-group form-check">
         {{ form.remember_me(size=32) }}
         <label class="form-check-label" for="remember-me-checkbox">Check me out</label>
-        <a  class="form-check-label" style="color: black; float: right;" href="{{ url_for('register') }}">Registration</a>
+        <a  class="form-check-label" style="color: black; float: right;" href="{{ url_for('login.register') }}">Registration</a>
       </div>
         {{ form.submit(class_='btn btn-primary') }}
         {% with messages = get_flashed_messages() %}

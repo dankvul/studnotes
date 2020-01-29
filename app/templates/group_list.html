@@ -10,7 +10,7 @@
                 <p>Group name :  {{ i.name }}</p>
                 <p>Group token : {{ i.reg_token }}</p>
                 <ul>
-                    {% for j in members[loop.index] %}
+                    {% for j in members[loop.index - 1] %}
                         <li>
                             {{ j.username }}
                         </li>
