@@ -1,7 +1,7 @@
 # Studnotes
 A modern tool for students
 
-# How to assemle? 
+# How to run 
 ### 1. Install pip
 ### 2. Create virtualenv and activate it
 ### 3. Install requirements using ```pip3 install -r requirements.txt``` 
