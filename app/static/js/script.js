@@ -26,10 +26,10 @@ function send_queue() {
         name: $("#queue-id-name").val()
     }).done(function (response) {
         $('#all_queues').append(
-            "                   <li class=\"list-group-item d-flex justify-content-between align-items-center\">\n" +
+            "                   <button type=\"button\" onclick=\"window.location.href = '/queues/"+response['id']+"'; \" class=\"list-group-item list-group-item-action d-flex justify-content-between align-items-center\">\n" +
             "                        "+ response['name'] +
             "                        <span class=\"badge badge-primary badge-pill\"> "+ response['size'] + "</span>\n" +
-            "                   </li>");
+            "                   </button>");
         close_add_deadline();
     }).fail(function() {
         $('#queue_errors').html('ERROR adding queue')

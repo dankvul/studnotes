@@ -11,6 +11,11 @@ class User(UserMixin, db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     password_hash = db.Column(db.String(128))
     tg_id = db.Column(db.Integer)
+    role = db.Column(db.Boolean)  # 0 -- user, 1 -- headmaster
+
+    def make_headmaster(self):
+        self.role = 1
+        db.session.commit()
 
     def change_password(self, new_pass):
         self.password_hash = generate_password_hash(new_pass)
@@ -51,7 +56,7 @@ class Deadline(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     exp_date = db.Column(db.Date)
     body = db.Column(db.String)
-    state = db.Column(db.Boolean) # hard == true, soft == false
+    state = db.Column(db.Boolean)  # hard == true, soft == false
 
     def set_group_id(self, g: Group):
         self.group_id = g.id

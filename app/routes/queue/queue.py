@@ -44,7 +44,6 @@ def enter_to_queue():
 @login_required
 def create_queue():
     new_queue_name = request.form['name']
-    print(new_queue_name)
     if Queue.query.filter_by(queue_name=new_queue_name).first():
         raise BadRequest()
     queue_new = Queue(queue_name=new_queue_name, group_id=current_user.group_id)
