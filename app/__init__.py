@@ -1,14 +1,23 @@
 from flask import Flask
+from flask.cli import with_appcontext
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+import click
+
 
 
 migrate = Migrate()
 db = SQLAlchemy()
 loginn = LoginManager()
 loginn.login_view = 'login'
+
+
+@click.command(name='create_tables')
+@with_appcontext
+def create_tables():
+    db.create_all()
 
 
 def getApp():
