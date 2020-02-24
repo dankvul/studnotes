@@ -1,6 +1,6 @@
 from app import db
 from flask_login import UserMixin
-from app import login
+from app import loginn as login
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.utils import randomString
 
