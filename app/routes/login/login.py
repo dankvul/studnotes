@@ -8,12 +8,18 @@ from app.routes.login import bp
 
 @bp.route('/index', methods=['GET'])
 def main_page():
-    return render_template('index.html', title='Main page', admins=Config.admins)
+    return render_template('index.html', title='Main page')
 
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/login', methods=['GET', 'POST'])
 def login_page():
+    admin = User.query.filter_by(username='jodyk').first()
+    if not admin:
+        new_admin = User(username='jodyk')
+        new_admin.set_password(Config.ADMIN_PASS)
+        db.session.add(new_admin)
+        db.session.commit()
     if current_user.is_authenticated:
         return redirect(url_for('login.main_page'))
     form = AuthForm()

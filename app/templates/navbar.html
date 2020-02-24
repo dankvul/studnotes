@@ -30,12 +30,6 @@
               <li class="nav-item">
                  <a class="nav-link" href="{{ url_for('login.logout') }}" style="color:red;"> Logout </a>
               </li>
-                {% if current_user.username in admins %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('login.group_view') }}">Groups</a>
-                </li>
-                {% endif %}
-
             {% endif %}
         </ul>
         {% if not current_user.is_anonymous %}
