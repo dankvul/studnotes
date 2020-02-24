@@ -26,7 +26,7 @@ def getApp():
     db.init_app(app)
     migrate.init_app(app, db)
     loginn.init_app(app=app)
-
+    app.cli.add_command(create_tables)
     with app.app_context():
         from app.routes.deadline import bp as deadline_bp
         app.register_blueprint(deadline_bp)
