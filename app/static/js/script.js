@@ -5,17 +5,6 @@ function close_add_deadline() {
     document.getElementById('deadline_input_form').style.visibility = "hidden";
 }
 
-
-function format_date(x) {
-    var date = x[8] + x[9] + '.' + x[5] + x[6] + '.' + x[0] + x[1] + x[2] + x[3];
-    return date;
-}
-
-function redirect_to_queue(id){
-    alert('123');
-    window.location.replace("/id");
-}
-
 function send_queue() {
     if (!$("#queue-id-name").val()) {
         $("#queue_errors").html("Value required");
@@ -50,6 +39,10 @@ function enter_to_queue(user_id, queue_id) {
     location.reload();
 }
 
+function delete_deadline(id){
+    window.location.href = '/deadlines/delete/' + id;
+}
+
 function send() {
     if (!$("#id-body").val()) {
         $("#deadline_errors").html("Value required");
@@ -61,12 +54,17 @@ function send() {
         date: $("#id-date").val(),
         state: $("#id-select").val()
     }).done(function (response) {
-        $('#all_deadlines').append(
-            "                        <div class=\"col-sm-3 deadline\">\n" +
-            "                            <h4>Name of deadline: " + response['body'] + "</h4>\n" +
-            "                            <h5 style='color:red;'>Expire Date: " + response['exp_date'] + "</h5>\n" +
-            "                        </div>");
-        close_add_deadline();
+        if (response['error']) {
+            $('#deadline_errors').html(response['error']);
+        } else {
+            $('#all_deadlines').append(
+                "                        <div class=\"col-sm-3 deadline\">\n" +
+                "                            <h4>" + response['body'] + "</h4>\n" +
+                "                            <h5 style='color:red;'>Days to go: " + response['exp_date'] + "</h5>\n" +
+                "                            <button class=\"btn btn-primary\" onclick=\'delete_deadline(" + response['id'] + ")\'>DELETE</button>\n" +
+                "                        </div>");
+            close_add_deadline();
+        }
     }).fail(function() {
         $('#deadline_errors').html('ERROR adding deadline')
     });

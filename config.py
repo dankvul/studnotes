@@ -9,4 +9,4 @@ class Config(object):
                               'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ADMIN_PASS = os.environ.get('ADMIN_PASS') or 'shitty-pass'
-    admins = set(['jodyk'])
+    admins = set(['jodyk', 'corelof'])

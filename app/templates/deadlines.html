@@ -27,8 +27,9 @@
                 <div class="row justify-content-center" id="all_deadlines">
                 {% for i in deadlines %}
                         <div class="col-sm-3 deadline">
-                            <h4>Name of deadline: {{ i.body }}</h4>
-                            <h5 style='color:red;'>Expire Date: {{ i.exp_date }}</h5>
+                            <h4>{{ i.body }}</h4>
+                            <h5 style='color:red;'>Days to go: {{ i.exp_date }}</h5>
+                            <button class="btn btn-primary" onclick="delete_deadline( {{ i.id }} )">DELETE</button>
                         </div>
 
                 {% endfor %}

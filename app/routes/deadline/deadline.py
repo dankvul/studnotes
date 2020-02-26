@@ -1,4 +1,4 @@
-from flask import render_template, flash
+from flask import render_template, flash, redirect, url_for
 from flask_login import current_user, login_required
 
 from app.models.users import *
@@ -31,7 +31,10 @@ def deadline_page():
     for i in deadlines_query:
         deadlines.append(upgraded_deadline(i.id, i.group_id, i.exp_date, i.body, i.state, color='white'))
     for i in deadlines:
-        i.exp_date = i.exp_date.strftime("%d.%m.%Y")
+        i.exp_date = (i.exp_date - datetime.date.today()).days
+        if i.exp_date == 0:
+            i.exp_date = 'today'
+
     return render_template('deadlines.html', title='Deadline', admins=Config.admins, deadlines=deadlines)
 
 
@@ -39,15 +42,31 @@ def deadline_page():
 @login_required
 def deadline_add():
     date = request.form['date']
-    new_d = datetime.date(int(date[0] + date[1]+date[2]+date[3]), int(date[5]+date[6]), int(date[8] + date[9]))
+    new_d = datetime.date(int(date[0] + date[1] + date[2] + date[3]), int(date[5] + date[6]), int(date[8] + date[9]))
     new_dl = Deadline(group_id=int(current_user.group_id), body=request.form['body'], state=bool(request.form['state']),
                       exp_date=new_d)
+    if new_d < datetime.date.today():
+        return jsonify({
+            'error': 'Wrong date given'
+        })
     db.session.add(new_dl)
     db.session.commit()
 
     return jsonify({'id': str(new_dl.id),
                     'group_id': str(new_dl.group_id),
-                    'exp_date': new_dl.exp_date.strftime("%d.%m.%Y"),
+                    'exp_date': 'today' if (new_dl.exp_date - datetime.date.today()).days == 0 else
+                    (new_dl.exp_date - datetime.date.today()).days,
                     'body': str(new_dl.body),
-                    'state': str(new_dl.state)
+                    'state': str(new_dl.state),
+                    'error': None
                     })
+
+
+@bp.route('/deadlines/delete/<int:id_deadline>', methods=['GET'])
+@login_required
+def deadline_delete(id_deadline: int):
+    deadline = Deadline.query.filter_by(id=id_deadline).first()
+    if deadline:
+        db.session.delete(deadline)
+        db.session.commit()
+    return redirect(url_for('deadline.deadline_page'))
